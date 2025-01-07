@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Message Broadcaster</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 50px;
+    }
+    #message {
+      font-size: 24px;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <h1>Message Broadcaster</h1>
+  <p id="message">Waiting for message...</p>
+
+  <script>
+    const socket = new WebSocket('ws://localhost:8080');
+
+    socket.onmessage = (event) => {
+      const messageElement = document.getElementById('message');
+      messageElement.textContent = event.data;
+    };
+
+    socket.onopen = () => {
+      console.log('Connected to the server');
+    };
+
+    socket.onclose = () => {
+      console.log('Disconnected from the server');
+    };
+  </script>
+</body>
+</html>
